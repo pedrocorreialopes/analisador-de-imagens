@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisador de Imagens - Resolução e Impressão</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-image"></i> Analisador de Imagens</h1>
+            <p>Faça upload de uma imagem para obter informações detalhadas sobre resolução, tamanho e qualidade de impressão</p>
+        </header>
+
+        <main class="main-content">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3>Arraste sua imagem aqui ou clique para selecionar</h3>
+                        <p>Formatos suportados: JPG, PNG, GIF, WebP</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-plus"></i> Selecionar Imagem
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>Informações da Imagem</h2>
+                    <button class="btn btn-secondary" onclick="resetUpload()">
+                        <i class="fas fa-redo"></i> Nova Análise
+                    </button>
+                </div>
+
+                <div class="image-preview">
+                    <img id="previewImage" alt="Pré-visualização da imagem">
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                            <h3>Dimensões</h3>
+                        </div>
+                        <div class="info-content">
+                            <p><strong>Resolução:</strong> <span id="resolution"></span></p>
+                            <p><strong>Largura:</strong> <span id="width"></span> px</p>
+                            <p><strong>Altura:</strong> <span id="height"></span> px
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>Arquivo</h3>
+                        </div>
+                        <div class="info-content">
+                            <p><strong>Tamanho:</strong> <span id="fileSize"></span></p>
+                            <p><strong>Tipo:</strong> <span id="fileType"></span></p>
+                            <p><strong>Nome:</strong> <span id="fileName"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <h3>DPI</h3>
+                        </div>
+                        <div class="info-content">
+                            <p><strong>DPI Calculado:</strong> <span id="dpi"></span></p>
+                            <p><strong>Qualidade:</strong> <span id="dpiQuality"></span></p>
+                            <p><strong>Classificação:</strong> <span id="dpiRating"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-print"></i>
+                            <h3>Impressão</h3>
+                        </div>
+                        <div class="info-content">
+                            <p><strong>Tamanho Máx. (300 DPI):</strong> <span id="maxPrintSize300"></span></p>
+                            <p><strong>Tamanho Máx. (150 DPI):</strong> <span id="maxPrintSize150"></span></p>
+                            <p><strong>Tamanho Máx. (72 DPI):</strong> <span id="maxPrintSize72"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quality-guide">
+                    <h3>Guia de Qualidade de Impressão</h3>
+                    <div class="quality-grid">
+                        <div class="quality-item excellent">
+                            <i class="fas fa-star"></i>
+                            <h4>Excelente (300+ DPI)</h4>
+                            <p>Impressão profissional, fotos de alta qualidade</p>
+                        </div>
+                        <div class="quality-item good">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>Boa (150-299 DPI)</h4>
+                            <p>Impressão comum, boa qualidade para a maioria dos usos</p>
+                        </div>
+                        <div class="quality-item fair">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h4>Regular (72-149 DPI)</h4>
+                            <p>Impressão básica, pode parecer granulada de perto</p>
+                        </div>
+                        <div class="quality-item poor">
+                            <i class="fas fa-times-circle"></i>
+                            <h4>Baixa (<72 DPI)</h4>
+                            <p>Não recomendada para impressão, muito borrada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Analisador de Imagens. Ferramenta online para análise de imagens.</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
