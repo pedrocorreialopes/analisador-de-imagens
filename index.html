@@ -3,127 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analisador de Imagens - Resolução e Impressão</title>
+    <title>Analisador de Imagens - Resolução e Tamanho de Impressão</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
+    <header class="site-header">
+        <div class="container">
             <h1><i class="fas fa-image"></i> Analisador de Imagens</h1>
-            <p>Faça upload de uma imagem para obter informações detalhadas sobre resolução, tamanho e qualidade de impressão</p>
-        </header>
+            <p class="subtitle">Descubra a resolução, tamanho do arquivo e o tamanho máximo de impressão com qualidade</p>
+        </div>
+    </header>
 
-        <main class="main-content">
-            <div class="upload-section">
-                <div class="upload-area" id="uploadArea">
-                    <div class="upload-content">
-                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                        <h3>Arraste sua imagem aqui ou clique para selecionar</h3>
-                        <p>Formatos suportados: JPG, PNG, GIF, WebP</p>
-                        <input type="file" id="fileInput" accept="image/*" hidden>
-                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
-                            <i class="fas fa-plus"></i> Selecionar Imagem
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="results-section" id="resultsSection" style="display: none;">
-                <div class="results-header">
-                    <h2>Informações da Imagem</h2>
-                    <button class="btn btn-secondary" onclick="resetUpload()">
-                        <i class="fas fa-redo"></i> Nova Análise
+    <main class="container">
+        <section id="upload-section" class="upload-section">
+            <div id="drop-zone" class="drop-zone">
+                <input type="file" id="file-input" accept="image/*" hidden>
+                <div class="drop-zone-content">
+                    <i class="fas fa-cloud-upload-alt drop-icon"></i>
+                    <h2>Arraste uma imagem aqui</h2>
+                    <p>ou</p>
+                    <button id="select-button" class="btn-primary" type="button">
+                        <i class="fas fa-folder-open"></i> Selecionar arquivo
                     </button>
-                </div>
-
-                <div class="image-preview">
-                    <img id="previewImage" alt="Pré-visualização da imagem">
-                </div>
-
-                <div class="info-grid">
-                    <div class="info-card">
-                        <div class="info-header">
-                            <i class="fas fa-expand-arrows-alt"></i>
-                            <h3>Dimensões</h3>
-                        </div>
-                        <div class="info-content">
-                            <p><strong>Resolução:</strong> <span id="resolution"></span></p>
-                            <p><strong>Largura:</strong> <span id="width"></span> px</p>
-                            <p><strong>Altura:</strong> <span id="height"></span> px
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-header">
-                            <i class="fas fa-file-alt"></i>
-                            <h3>Arquivo</h3>
-                        </div>
-                        <div class="info-content">
-                            <p><strong>Tamanho:</strong> <span id="fileSize"></span></p>
-                            <p><strong>Tipo:</strong> <span id="fileType"></span></p>
-                            <p><strong>Nome:</strong> <span id="fileName"></span></p>
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-header">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <h3>DPI</h3>
-                        </div>
-                        <div class="info-content">
-                            <p><strong>DPI Calculado:</strong> <span id="dpi"></span></p>
-                            <p><strong>Qualidade:</strong> <span id="dpiQuality"></span></p>
-                            <p><strong>Classificação:</strong> <span id="dpiRating"></span></p>
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-header">
-                            <i class="fas fa-print"></i>
-                            <h3>Impressão</h3>
-                        </div>
-                        <div class="info-content">
-                            <p><strong>Tamanho Máx. (300 DPI):</strong> <span id="maxPrintSize300"></span></p>
-                            <p><strong>Tamanho Máx. (150 DPI):</strong> <span id="maxPrintSize150"></span></p>
-                            <p><strong>Tamanho Máx. (72 DPI):</strong> <span id="maxPrintSize72"></span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="quality-guide">
-                    <h3>Guia de Qualidade de Impressão</h3>
-                    <div class="quality-grid">
-                        <div class="quality-item excellent">
-                            <i class="fas fa-star"></i>
-                            <h4>Excelente (300+ DPI)</h4>
-                            <p>Impressão profissional, fotos de alta qualidade</p>
-                        </div>
-                        <div class="quality-item good">
-                            <i class="fas fa-check-circle"></i>
-                            <h4>Boa (150-299 DPI)</h4>
-                            <p>Impressão comum, boa qualidade para a maioria dos usos</p>
-                        </div>
-                        <div class="quality-item fair">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <h4>Regular (72-149 DPI)</h4>
-                            <p>Impressão básica, pode parecer granulada de perto</p>
-                        </div>
-                        <div class="quality-item poor">
-                            <i class="fas fa-times-circle"></i>
-                            <h4>Baixa (<72 DPI)</h4>
-                            <p>Não recomendada para impressão, muito borrada</p>
-                        </div>
-                    </div>
+                    <p class="hint">Formatos suportados: JPG, PNG, GIF, WEBP, BMP</p>
                 </div>
             </div>
-        </main>
+        </section>
 
-        <footer class="footer">
-            <p>&copy; 2024 Analisador de Imagens. Ferramenta online para análise de imagens.</p>
-        </footer>
-    </div>
+        <section id="results-section" class="results-section hidden">
+            <div class="results-grid">
+                <article class="preview-card">
+                    <h2><i class="fas fa-eye"></i> Pré-visualização</h2>
+                    <div class="preview-wrapper">
+                        <img id="preview-image" alt="Pré-visualização da imagem">
+                    </div>
+                    <p id="file-name" class="file-name"></p>
+                </article>
 
-    <script src="js/script.js"></script>
+                <article class="info-card">
+                    <h2><i class="fas fa-info-circle"></i> Informações da Imagem</h2>
+                    <ul class="info-list">
+                        <li>
+                            <span class="label"><i class="fas fa-expand"></i> Resolução</span>
+                            <span id="resolution" class="value">-</span>
+                        </li>
+                        <li>
+                            <span class="label"><i class="fas fa-th"></i> Total de pixels</span>
+                            <span id="pixels" class="value">-</span>
+                        </li>
+                        <li>
+                            <span class="label"><i class="fas fa-weight-hanging"></i> Tamanho do arquivo</span>
+                            <span id="file-size" class="value">-</span>
+                        </li>
+                        <li>
+                            <span class="label"><i class="fas fa-file-image"></i> Tipo</span>
+                            <span id="file-type" class="value">-</span>
+                        </li>
+                        <li>
+                            <span class="label"><i class="fas fa-ruler-combined"></i> Proporção</span>
+                            <span id="aspect-ratio" class="value">-</span>
+                        </li>
+                        <li>
+                            <span class="label"><i class="fas fa-star"></i> Qualidade</span>
+                            <span id="quality-rating" class="value quality">-</span>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+
+            <article class="print-card">
+                <h2><i class="fas fa-print"></i> Tamanhos Máximos de Impressão</h2>
+                <p class="card-description">
+                    A qualidade da impressão depende da quantidade de pixels por polegada (DPI/PPI).
+                    Selecione abaixo o nível de qualidade desejado para ver o tamanho máximo recomendado.
+                </p>
+
+                <div class="dpi-selector">
+                    <label for="custom-dpi">DPI personalizado:</label>
+                    <input type="number" id="custom-dpi" min="72" max="600" value="300">
+                    <button id="apply-dpi" class="btn-secondary" type="button">Aplicar</button>
+                </div>
+
+                <div id="print-sizes" class="print-sizes-grid"></div>
+
+                <div class="paper-comparison">
+                    <h3><i class="fas fa-file"></i> Compatibilidade com tamanhos de papel padrão</h3>
+                    <p class="card-description">
+                        Considerando 300 DPI (qualidade fotográfica), veja se a imagem é adequada para os tamanhos de impressão mais comuns.
+                    </p>
+                    <div id="paper-sizes" class="paper-sizes-grid"></div>
+                </div>
+            </article>
+
+            <div class="actions">
+                <button id="reset-button" class="btn-primary" type="button">
+                    <i class="fas fa-redo"></i> Analisar outra imagem
+                </button>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2><i class="fas fa-graduation-cap"></i> Entenda a qualidade de impressão</h2>
+            <div class="info-grid">
+                <div class="info-box">
+                    <i class="fas fa-image"></i>
+                    <h3>72 DPI</h3>
+                    <p>Qualidade adequada apenas para visualização em tela (web, redes sociais).</p>
+                </div>
+                <div class="info-box">
+                    <i class="fas fa-newspaper"></i>
+                    <h3>150 DPI</h3>
+                    <p>Qualidade aceitável para impressões grandes vistas à distância (banners, pôsteres grandes).</p>
+                </div>
+                <div class="info-box highlight">
+                    <i class="fas fa-medal"></i>
+                    <h3>300 DPI</h3>
+                    <p>Padrão profissional para impressões fotográficas de alta qualidade. Recomendado para maioria dos casos.</p>
+                </div>
+                <div class="info-box">
+                    <i class="fas fa-trophy"></i>
+                    <h3>600 DPI</h3>
+                    <p>Qualidade excepcional para impressões artísticas, livros de arte e detalhes minuciosos.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 Analisador de Imagens. Toda a análise é feita localmente no seu navegador — suas imagens não são enviadas a nenhum servidor.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
 </body>
 </html>

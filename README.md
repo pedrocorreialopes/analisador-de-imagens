@@ -1,120 +1,105 @@
-# Analisador de Imagens
+# Analisador de Imagens 📸
 
-Uma aplicação web que permite aos usuários fazer upload de imagens e obter informações detalhadas sobre resolução, tamanho do arquivo, DPI e tamanhos máximos de impressão com qualidade adequada.
+Aplicação web estática que permite ao usuário fazer upload de uma imagem e obter, instantaneamente, informações detalhadas sobre **resolução**, **tamanho do arquivo** e **tamanho máximo recomendado para impressão com boa qualidade**.
 
-## 🚀 Funcionalidades
+Toda a análise é feita **localmente no navegador** — nenhum arquivo é enviado a servidores.
 
-### ✅ Implementadas
-- **Upload de imagens** por arrastar e soltar ou seleção manual
-- **Análise automática** de imagens (formatos: JPG, PNG, GIF, WebP)
-- **Informações detalhadas**:
-  - Resolução em pixels (largura × altura)
-  - Tamanho do arquivo em KB/MB
-  - Tipo de arquivo
-  - DPI calculado
-  - Qualidade de impressão classificada
-- **Cálculo de tamanhos máximos de impressão** para diferentes qualidades:
-  - 300 DPI (Excelente qualidade)
-  - 150 DPI (Boa qualidade)
-  - 72 DPI (Qualidade básica)
-- **Interface responsiva** para desktop e dispositivos móveis
-- **Guia visual** de qualidade de impressão
+---
 
-### 🎯 Como Usar
+## ✅ Funcionalidades implementadas
 
-1. Acesse a aplicação
-2. Arraste uma imagem para a área de upload ou clique para selecionar
-3. Aguarde o processamento automático
-4. Visualize as informações detalhadas sobre sua imagem
-5. Consulte os tamanhos máximos de impressão recomendados
+- **Upload de imagem** via clique ou arrastar e soltar (drag & drop).
+- **Suporte a múltiplos formatos**: JPG, PNG, GIF, WEBP, BMP.
+- **Pré-visualização** da imagem carregada.
+- **Informações exibidas**:
+  - Resolução (largura × altura em pixels)
+  - Total de pixels e megapixels (MP)
+  - Tamanho do arquivo (KB / MB)
+  - Tipo MIME
+  - Proporção (aspect ratio) — ex.: 16:9, 4:3
+  - Avaliação automática de qualidade (Excelente / Boa / Média / Baixa)
+- **Cálculo de tamanho máximo de impressão** em quatro níveis padrão de qualidade:
+  - **72 DPI** — uso em tela / web
+  - **150 DPI** — qualidade aceitável (banners, pôsteres a distância)
+  - **300 DPI** — padrão profissional (fotografia)
+  - **600 DPI** — qualidade excepcional (arte)
+- **DPI personalizado**: o usuário pode informar qualquer valor (72–600).
+- **Compatibilidade com tamanhos de papel padrão** (a 300 DPI):
+  - 10×15, 13×18, 15×21, 20×30, A4, A3, 30×45, A2
+  - Indica visualmente se a imagem possui resolução suficiente em cada tamanho.
+- **Design responsivo** (desktop, tablet e mobile).
+- **Seção educativa** explicando os níveis de DPI.
 
-## 📊 Cálculos e Métricas
+---
 
-### DPI (Pontos por Polegada)
-- **Excelente (300+ DPI)**: Impressão profissional, fotos de alta qualidade
-- **Boa (150-299 DPI)**: Impressão comum, boa qualidade para a maioria dos usos
-- **Regular (72-149 DPI)**: Impressão básica, pode parecer granulada
-- **Baixa (<72 DPI)**: Não recomendada para impressão
+## 🌐 Entradas funcionais (URIs)
 
-### Tamanhos de Impressão
-Os tamanhos são calculados considerando:
-- Conversão de pixels para polegadas (divisão pelo DPI)
-- Conversão de polegadas para centímetros (× 2,54)
-- Tamanhos máximos para diferentes níveis de qualidade
+| Caminho | Descrição |
+|---------|-----------|
+| `index.html` | Página única da aplicação (SPA estática) |
+| `css/style.css` | Estilos da aplicação |
+| `js/main.js` | Lógica de upload, leitura de imagem e cálculos de impressão |
 
-## 🛠️ Tecnologias Utilizadas
+A aplicação **não possui parâmetros de URL**, todas as ações são feitas pela interface.
 
-- **HTML5/CSS3**: Estrutura e estilização
-- **JavaScript Vanilla**: Lógica da aplicação
-- **Font Awesome**: Ícones
-- **CSS Grid/Flexbox**: Layout responsivo
-- **Drag & Drop API**: Upload interativo
+---
 
-## 📁 Estrutura do Projeto
+## 🧠 Como funciona o cálculo
+
+A relação usada é a clássica de impressão:
 
 ```
-/
-├── index.html          # Página principal
-├── css/
-│   └── style.css      # Estilos e responsividade
-├── js/
-│   └── script.js      # Lógica JavaScript
-└── README.md          # Documentação
+Tamanho em polegadas = pixels / DPI
+Tamanho em centímetros = polegadas × 2,54
 ```
 
-## 🌐 Endpoints e Funcionalidades
+Exemplo: uma imagem de 3000 × 2000 px a 300 DPI gera uma impressão de **25,4 × 16,9 cm** com qualidade fotográfica profissional.
 
-### Página Principal
-- **URL**: `/index.html`
-- **Descrição**: Interface principal da aplicação
-- **Funcionalidades**: Upload de imagens, análise e exibição de resultados
+---
 
-## 📱 Responsividade
+## ❌ Funcionalidades ainda não implementadas
 
-A aplicação é totalmente responsiva e funciona em:
-- Desktop (1200px+)
-- Tablets (768px - 1199px)
-- Smartphones (< 768px)
+- Leitura de metadados EXIF (câmera, lente, ISO, data, GPS).
+- Detecção do DPI embutido no arquivo (quando presente nos metadados).
+- Suporte a múltiplas imagens simultâneas (lote).
+- Exportação do relatório em PDF.
+- Histórico das últimas imagens analisadas.
+- Sugestão automática de redimensionamento para ajustar a um papel específico.
 
-## 🔧 Configurações
+---
 
-### Limitações
-- Tamanho máximo de arquivo: 20MB
-- Formatos suportados: JPG, PNG, GIF, WebP
-- Máximo de pixels: Limitado pela memória do navegador
+## 🚀 Próximos passos recomendados
 
-### Personalização
-As cores e estilos podem ser facilmente modificados no arquivo `css/style.css`.
+1. Adicionar leitura de metadados EXIF usando a biblioteca `exif-js` ou `piexifjs` via CDN.
+2. Permitir comparar várias imagens em uma única tela.
+3. Adicionar uma calculadora reversa: "quero imprimir em X cm a 300 DPI — qual resolução preciso?".
+4. Gerar e baixar um PDF com o relatório de análise.
+5. Internacionalização (i18n) para inglês e espanhol.
 
-## 🚀 Próximas Funcionalidades Sugeridas
+---
 
-1. **Análise de cores predominantes**
-2. **Detecção de metadados EXIF** (data, câmera, GPS)
-3. **Comparação lado a lado** de múltiplas imagens
-4. **Histórico de análises**
-5. **Download de relatório PDF**
-6. **Compartilhamento de resultados**
-7. **Análise de compressão e perda de qualidade**
-8. **Conversão entre formatos**
+## 🏗️ Arquitetura
 
-## 📈 Melhorias de Performance
+```
+index.html              → Estrutura HTML semântica
+css/
+  └── style.css         → Estilos modernos, responsivos e animações
+js/
+  └── main.js           → FileReader API + Image API para análise local
+```
 
-- Implementar cache de imagens processadas
-- Adicionar lazy loading para imagens grandes
-- Otimizar cálculos para imagens de alta resolução
-- Adicionar indicadores de progresso durante o processamento
+### Tecnologias utilizadas
+- **HTML5** semântico
+- **CSS3** com variáveis e Grid/Flexbox
+- **JavaScript vanilla** (FileReader, Image API)
+- **Font Awesome** (ícones via CDN)
+- **Google Fonts — Inter** (tipografia)
 
-## 🐛 Tratamento de Erros
+### Modelo de dados
+A aplicação **não armazena dados** (sem backend, sem tabelas). Toda informação é calculada em tempo real e descartada ao recarregar a página.
 
-A aplicação inclui validação de:
-- Formatos de arquivo não suportados
-- Arquivos muito grandes
-- Arquivos corrompidos
-- Imagens que não conseguem ser carregadas
+---
 
-## 📄 Notas Importantes
+## 📦 Como publicar
 
-- O cálculo de DPI é estimado baseado na resolução da imagem
-- Para DPI exato, seria necessário acesso aos metadados EXIF
-- Os tamanhos de impressão são recomendações baseadas em padrões gráficos
-- A qualidade final da impressão também depende da impressora e papel utilizados
+Use a aba **Publish** para fazer o deploy do site com um clique. A aba Publish cuida de todo o processo automaticamente e fornece a URL pública.
